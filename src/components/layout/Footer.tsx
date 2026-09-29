@@ -64,6 +64,14 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
             <p className="text-sm text-[hsl(var(--color-muted-foreground))] leading-relaxed max-w-xs">
               {t('tagline') || 'Professional, secure, and free PDF tools for everyone. No installation required.'}
             </p>
+            <div className="pt-1">
+              <a
+                href="https://pdfcompress.online"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[hsl(var(--color-primary))] hover:underline"
+              >
+                <span>← {locale === 'zh' ? '访问主站 pdfcompress.online' : 'Visit main site pdfcompress.online'}</span>
+              </a>
+            </div>
 
             <div className="flex gap-4">
               <a href="https://github.com/PDFCraftTool/pdfcraft" className="p-2 rounded-full bg-[hsl(var(--color-muted))] text-[hsl(var(--color-muted-foreground))] hover:bg-[hsl(var(--color-primary))] hover:text-white transition-all">

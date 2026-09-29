@@ -202,16 +202,24 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
 
           {/* Desktop Navigation */}
           <nav
-            className={`hidden md:flex items-center gap-1 rounded-full border border-[hsl(var(--color-border))/0.4] bg-[hsl(var(--color-background))/0.5] p-1.5 backdrop-blur-sm shadow-sm transition-all duration-300 ${isSearchOpen ? 'opacity-0 translate-y-[-10px] pointer-events-none' : 'opacity-100 translate-y-0'
+            className={`hidden md:flex items-center gap-1 rounded-full border border-[hsl(var(--color-border))/0.6] bg-[hsl(var(--color-background))/0.8] p-1.5 backdrop-blur-md shadow-sm transition-all duration-300 ${isSearchOpen ? 'opacity-0 translate-y-[-10px] pointer-events-none' : 'opacity-100 translate-y-0'
               }`}
             role="navigation"
             aria-label="Main navigation"
           >
+            <a
+              href="https://pdfcompress.online"
+              className="px-3.5 py-1.5 text-sm font-semibold text-[hsl(var(--color-primary))] hover:bg-[hsl(var(--color-primary))/0.1] rounded-full transition-all flex items-center gap-1.5"
+            >
+              <span>←</span>
+              <span>{locale === 'zh' ? '主站' : 'pdfcompress.online'}</span>
+            </a>
+            <div className="w-[1px] h-4 bg-[hsl(var(--color-border))] mx-0.5" />
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-4 py-1.5 text-sm font-medium text-[hsl(var(--color-muted-foreground))] hover:text-[hsl(var(--color-foreground))] hover:bg-[hsl(var(--color-muted))/0.5] rounded-full transition-all"
+                className="px-3.5 py-1.5 text-sm font-medium text-[hsl(var(--color-muted-foreground))] hover:text-[hsl(var(--color-foreground))] hover:bg-[hsl(var(--color-muted))] rounded-full transition-all"
               >
                 {item.label}
               </Link>
@@ -361,6 +369,16 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
             aria-label="Mobile navigation"
           >
             <ul className="flex flex-col gap-2 p-2">
+              <li>
+                <a
+                  href="https://pdfcompress.online"
+                  className="flex items-center gap-2 px-4 py-3 text-base font-semibold text-[hsl(var(--color-primary))] bg-[hsl(var(--color-primary))/0.08] rounded-lg transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <span>←</span>
+                  <span>{locale === 'zh' ? '返回主站 pdfcompress.online' : 'Back to pdfcompress.online'}</span>
+                </a>
+              </li>
               {navItems.map((item) => (
                 <li key={item.href}>
                   <Link
