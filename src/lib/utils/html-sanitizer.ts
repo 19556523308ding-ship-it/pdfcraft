@@ -14,9 +14,9 @@ const ALLOWED_TAGS = new Set([
   'hr', 'sub', 'sup', 'mark',
 ]);
 
-// Allowed attributes per tag
+// Allowed attributes per tag (严格移除通配符 style 属性，阻止 CSS 注入与点击劫持)
 const ALLOWED_ATTRS: Record<string, Set<string>> = {
-  '*': new Set(['class', 'id', 'style']),
+  '*': new Set(['class', 'id']),
   'a': new Set(['href', 'title', 'target', 'rel']),
   'img': new Set(['src', 'alt', 'width', 'height']),
   'td': new Set(['colspan', 'rowspan']),
@@ -72,6 +72,11 @@ export function sanitizeHtml(html: string): string {
     while ((attrMatch = attrRegex.exec(attrString)) !== null) {
       const attrName = attrMatch[1].toLowerCase();
       const attrValue = attrMatch[2] ?? attrMatch[3] ?? attrMatch[4] ?? '';
+
+      // 强制过滤任何 style 属性与 on* 事件处理器
+      if (attrName === 'style' || attrName.startsWith('on')) {
+        continue;
+      }
 
       if (globalAttrs.has(attrName) || tagAttrs.has(attrName)) {
         // Validate URLs

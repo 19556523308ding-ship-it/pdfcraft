@@ -61,14 +61,27 @@ async fn save_file(app: tauri::AppHandle, suggested_name: String, filters: Vec<F
     }
 }
 
+fn validate_safe_path(target_path: &str) -> Result<std::path::PathBuf, String> {
+    let path = std::path::Path::new(target_path);
+    // 基础防穿越：禁止使用 .. 逃逸目录
+    if target_path.contains("..") {
+        return Err("Relative path navigation (..) is forbidden".to_string());
+    }
+    // 获取规范化路径
+    let canonical = path.canonicalize().map_err(|e| format!("Invalid path: {}", e))?;
+    Ok(canonical)
+}
+
 #[tauri::command]
 fn read_file(path: String) -> Result<Vec<u8>, String> {
-    fs::read(&path).map_err(|e| e.to_string())
+    let safe_path = validate_safe_path(&path)?;
+    fs::read(safe_path).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 fn write_file(path: String, data: Vec<u8>) -> Result<(), String> {
-    fs::write(&path, data).map_err(|e| e.to_string())
+    let safe_path = validate_safe_path(&path)?;
+    fs::write(safe_path, data).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
