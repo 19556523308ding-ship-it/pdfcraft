@@ -2,15 +2,15 @@
  * Site configuration
  */
 export const siteConfig = {
-  name: 'PDFCraft',
+  name: 'PDFCompress',
   description: 'Professional PDF Tools - Free, Private & Browser-Based. Merge, split, compress, convert, and edit PDF files online without uploading to servers.',
-  url: 'https://pdfcraft.devtoolcafe.com',
+  url: 'https://tool.pdfcompress.online',
   ogImage: '/images/og-image.png',
   links: {
-    github: 'https://github.com/PDFCraftTool/pdfcraft',
-    twitter: 'https://twitter.com/pdfcraft',
+    github: 'https://github.com/19556523308ding-ship-it/pdfcraft',
+    mainSite: 'https://pdfcompress.online',
   },
-  creator: 'PDFCraft Team',
+  creator: 'PDFCompress',
   keywords: [
     'PDF tools',
     'PDF editor',
@@ -25,10 +25,10 @@ export const siteConfig = {
   ],
   // SEO-related settings
   seo: {
-    titleTemplate: '%s | PDFCraft',
-    defaultTitle: 'PDFCraft - Professional PDF Tools',
-    twitterHandle: '@pdfcraft',
-    locale: 'en_US',
+    titleTemplate: '%s | PDFCompress',
+    defaultTitle: 'PDFCompress - Professional PDF Tools',
+    twitterHandle: '@pdfcompress',
+    locale: 'zh_CN',
   },
 };
 
