@@ -32,22 +32,22 @@ export default function ContactPageClient({ locale }: ContactPageClientProps) {
       icon: Mail,
       title: t('methods.email.title'),
       description: t('methods.email.description'),
-      action: t('methods.email.action'),
-      href: 'mailto:contact@pdfcraft.gitu.net',
+      action: t('methods.email.action') || '19556523308ding@gmail.com',
+      href: 'mailto:19556523308ding@gmail.com',
     },
     {
       icon: Github,
       title: t('methods.github.title'),
       description: t('methods.github.description'),
       action: t('methods.github.action'),
-      href: 'https://github.com/PDFCraftTool/pdfcraft',
+      href: 'https://github.com/19556523308ding-ship-it/pdfcraft',
     },
     {
       icon: Twitter,
       title: t('methods.twitter.title'),
       description: t('methods.twitter.description'),
       action: t('methods.twitter.action'),
-      href: 'https://x.com/PDFCraftTool',
+      href: 'https://pdfcompress.online',
     },
   ];
 

@@ -180,19 +180,8 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
               className="group flex items-center gap-2.5 text-xl font-bold text-[hsl(var(--color-foreground))] hover:opacity-90 transition-opacity"
               aria-label={`${t('brand')} - ${t('navigation.home')}`}
             >
-              <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[hsl(var(--color-primary))] to-[hsl(var(--color-accent))] shadow-lg shadow-primary/25 transition-transform group-hover:scale-105">
-                <svg
-                  className="h-5 w-5 text-white"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                  <polyline points="14 2 14 8 20 8" />
-                </svg>
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-[10px] bg-[hsl(var(--color-primary))] text-white font-extrabold text-sm shadow-md transition-transform group-hover:scale-105">
+                PDF
               </div>
               <span className="text-xl tracking-tight" data-testid="brand-name">
                 {t('brand')}
@@ -326,7 +315,7 @@ export const Header: React.FC<HeaderProps> = ({ locale, showSearch = true }) => 
 
             {/* GitHub Repository Link */}
             <a
-              href="https://pdf.kixtools.com"
+              href="https://github.com/19556523308ding-ship-it/pdfcraft"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:flex items-center justify-center h-9 w-9 rounded-lg text-[hsl(var(--color-muted-foreground))] hover:text-[hsl(var(--color-foreground))] hover:bg-[hsl(var(--color-muted))/0.5] transition-all"

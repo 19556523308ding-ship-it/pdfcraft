@@ -1,7 +1,7 @@
 {
   "metadata": {
     "home": {
-      "title": "PDFCraft — profesjonalne narzędzia PDF",
+      "title": "PDFCompress — profesjonalne narzędzia PDF",
       "description": "Bezpłatne, prywatne narzędzia działające w przeglądarce. Łącz, edytuj i przetwarzaj pliki PDF online bez przesyłania ich na serwery."
     },
     "tools": {
@@ -9,20 +9,20 @@
       "description": "Przeglądaj wszystkie ponad 67 profesjonalnych narzędzi PDF. Łącz, dziel, kompresuj, konwertuj, edytuj i zabezpieczaj swoje pliki PDF za darmo."
     },
     "about": {
-      "title": "O PDFCraft",
-      "description": "Dowiedz się o PDFCraft — darmowym, prywatnym i zaawansowanym zestawie narzędzi PDF. Całe przetwarzanie odbywa się w Twojej przeglądarce."
+      "title": "O PDFCompress",
+      "description": "Dowiedz się o PDFCompress — darmowym, prywatnym i zaawansowanym zestawie narzędzi PDF. Całe przetwarzanie odbywa się w Twojej przeglądarce."
     },
     "faq": {
       "title": "Często zadawane pytania",
-      "description": "Znajdź odpowiedzi na często zadawane pytania dotyczące PDFCraft. Dowiedz się, jak efektywnie korzystać z naszych narzędzi PDF."
+      "description": "Znajdź odpowiedzi na często zadawane pytania dotyczące PDFCompress. Dowiedz się, jak efektywnie korzystać z naszych narzędzi PDF."
     },
     "privacy": {
       "title": "Polityka prywatności",
-      "description": "Polityka prywatności PDFCraft. Twoje pliki nigdy nie opuszczają Twojego urządzenia – całe przetwarzanie odbywa się lokalnie w Twojej przeglądarce."
+      "description": "Polityka prywatności PDFCompress. Twoje pliki nigdy nie opuszczają Twojego urządzenia – całe przetwarzanie odbywa się lokalnie w Twojej przeglądarce."
     },
     "contact": {
       "title": "Skontaktuj się z nami",
-      "description": "Skontaktuj się z zespołem PDFCraft. Chcielibyśmy usłyszeć od ciebie."
+      "description": "Skontaktuj się z zespołem PDFCompress. Chcielibyśmy usłyszeć od ciebie."
     },
     "keywords": {
       "pdfTools": "narzędzia PDF",
@@ -35,13 +35,13 @@
     }
   },
   "common": {
-    "brand": "PDFCraft",
+    "brand": "PDFCompress",
     "tagline": "Profesjonalne narzędzia PDF — bezpłatne i prywatne",
     "navigation": {
       "home": "Strona główna",
       "tools": "Narzędzia",
       "workflow": "Przepływ pracy",
-      "about": "O PDFCraft",
+      "about": "O PDFCompress",
       "faq": "Często zadawane pytania",
       "privacy": "Prywatność",
       "contact": "Kontakt"
@@ -83,8 +83,8 @@
       "loading": "Ładowanie..."
     },
     "footer": {
-      "footer": "© 2025 PDFCraft. Wszelkie prawa zastrzeżone.",
-      "copyright": "© {year} PDFCraft. Wszelkie prawa zastrzeżone.",
+      "footer": "© 2025 PDFCompress. Wszelkie prawa zastrzeżone.",
+      "copyright": "© {year} PDFCompress. Wszelkie prawa zastrzeżone.",
       "privacyBadge": "100% prywatności — pliki nigdy nie opuszczają Twojego urządzenia",
       "madeWith": "Wykonane z <Heart /> i <Nextjs />"
     },
@@ -129,7 +129,7 @@
       "finish": "Zakończ",
       "skip": "Pomiń",
       "stepOf": "z",
-      "welcomeTitle": "Witamy w PDFCraft!",
+      "welcomeTitle": "Witamy w PDFCompress!",
       "welcomeMessage": "Czy chcesz skorzystać z krótkiego przewodnika i dowiedzieć się, jak korzystać z naszych narzędzi PDF? To zajmie tylko minutę.",
       "helpButton": "Przewodnik po aplikacji"
     },
@@ -504,7 +504,7 @@
       "bronzeWax": "Antyczny karmazynowy brąz",
       "enableDoubleKey": "Włącz szyfrowanie podwójnym kluczem certyfikatu (256-bitowa silna blokada)",
       "decryptPasswordHelp": "Ustaw hasło klucza deszyfrującego PFX",
-      "passwordPlaceholder": "Domyślne hasło: pdfcraft",
+      "passwordPlaceholder": "Domyślne hasło: pdfcompress",
       "sealCoordinates": "Współrzędne pieczęci: X: {x}px, Y: {y}px",
       "clickToReposition": "Kliknij w dowolnym miejscu, aby zmienić położenie pieczęci woskowej"
     },
@@ -951,16 +951,16 @@
     "sections": {
       "general": {
         "whatIs": {
-          "question": "Co to jest PDFCraft?",
-          "answer": "PDFCraft to bezpłatny, dbający o prywatność zestaw narzędzi PDF, który działa całkowicie w przeglądarce. Oferuje ponad 80 profesjonalnych narzędzi do edycji, konwertowania, łączenia, dzielenia i zabezpieczania plików PDF bez przesyłania ich na jakikolwiek serwer."
+          "question": "Co to jest PDFCompress?",
+          "answer": "PDFCompress to bezpłatny, dbający o prywatność zestaw narzędzi PDF, który działa całkowicie w przeglądarce. Oferuje ponad 80 profesjonalnych narzędzi do edycji, konwertowania, łączenia, dzielenia i zabezpieczania plików PDF bez przesyłania ich na jakikolwiek serwer."
         },
         "isFree": {
-          "question": "Czy PDFCraft jest naprawdę darmowy?",
-          "answer": "Tak, korzystanie z PDFCraft jest całkowicie bezpłatne. Nie ma żadnych ukrytych kosztów, żadnych poziomów premium i nie jest wymagana rejestracja. Wszystkie funkcje są dostępne dla każdego."
+          "question": "Czy PDFCompress jest naprawdę darmowy?",
+          "answer": "Tak, korzystanie z PDFCompress jest całkowicie bezpłatne. Nie ma żadnych ukrytych kosztów, żadnych poziomów premium i nie jest wymagana rejestracja. Wszystkie funkcje są dostępne dla każdego."
         },
         "account": {
           "question": "Czy muszę zakładać konto?",
-          "answer": "Nie, nie musisz tworzyć konta ani rejestrować się, aby korzystać z PDFCraft. Wystarczy wejść na stronę i od razu zacząć korzystać z dowolnego narzędzia."
+          "answer": "Nie, nie musisz tworzyć konta ani rejestrować się, aby korzystać z PDFCompress. Wystarczy wejść na stronę i od razu zacząć korzystać z dowolnego narzędzia."
         }
       },
       "privacy": {
@@ -969,8 +969,8 @@
           "answer": "Nie, Twoje pliki nigdy nie są przesyłane na żaden serwer. Całe przetwarzanie PDF odbywa się lokalnie w Twojej przeglądarce przy użyciu JavaScript i WebAssembly. Twoje pliki nigdy nie opuszczają Twojego urządzenia."
         },
         "safe": {
-          "question": "Czy używanie PDFCraft w przypadku poufnych dokumentów jest bezpieczne?",
-          "answer": "Tak, PDFCraft został zaprojektowany z myślą o prywatności. Ponieważ całe przetwarzanie odbywa się lokalnie w Twojej przeglądarce, Twoje wrażliwe dokumenty pozostają na Twoim urządzeniu i nigdy nie są przesyłane przez Internet."
+          "question": "Czy używanie PDFCompress w przypadku poufnych dokumentów jest bezpieczne?",
+          "answer": "Tak, PDFCompress został zaprojektowany z myślą o prywatności. Ponieważ całe przetwarzanie odbywa się lokalnie w Twojej przeglądarce, Twoje wrażliwe dokumenty pozostają na Twoim urządzeniu i nigdy nie są przesyłane przez Internet."
         },
         "storage": {
           "question": "Co dzieje się z moimi plikami po przetworzeniu?",
@@ -980,7 +980,7 @@
       "features": {
         "operations": {
           "question": "Jakie operacje na plikach PDF mogę wykonać?",
-          "answer": "PDFCraft oferuje ponad 67 narzędzi, w tym: łączenie, dzielenie, kompresowanie, konwertowanie (do/z obrazów, tekstu, JSON), edytowanie, dodawanie adnotacji, podpisywanie, dodawanie znaków wodnych, szyfrowanie/deszyfrowanie, OCR i wiele innych."
+          "answer": "PDFCompress oferuje ponad 67 narzędzi, w tym: łączenie, dzielenie, kompresowanie, konwertowanie (do/z obrazów, tekstu, JSON), edytowanie, dodawanie adnotacji, podpisywanie, dodawanie znaków wodnych, szyfrowanie/deszyfrowanie, OCR i wiele innych."
         },
         "merge": {
           "question": "Czy mogę połączyć wiele plików PDF?",
@@ -988,17 +988,17 @@
         },
         "images": {
           "question": "Czy mogę przekonwertować obrazy na PDF?",
-          "answer": "Tak, PDFCraft obsługuje konwersję różnych formatów obrazów (JPG, PNG, WebP, BMP, TIFF, SVG, HEIC) do PDF. Możesz konwertować jeden lub wiele obrazów jednocześnie."
+          "answer": "Tak, PDFCompress obsługuje konwersję różnych formatów obrazów (JPG, PNG, WebP, BMP, TIFF, SVG, HEIC) do PDF. Możesz konwertować jeden lub wiele obrazów jednocześnie."
         },
         "edit": {
           "question": "Czy mogę edytować tekst w PDF?",
-          "answer": "PDFCraft zapewnia narzędzia do adnotacji i edycji, w tym wyróżnianie, dodawanie tekstu, kształtów, obrazów i podpisów. Do edycji pełnego tekstu narzędzie PDF Editor oferuje wszechstronne możliwości dodawania adnotacji."
+          "answer": "PDFCompress zapewnia narzędzia do adnotacji i edycji, w tym wyróżnianie, dodawanie tekstu, kształtów, obrazów i podpisów. Do edycji pełnego tekstu narzędzie PDF Editor oferuje wszechstronne możliwości dodawania adnotacji."
         }
       },
       "technical": {
         "browsers": {
           "question": "Jakie przeglądarki są obsługiwane?",
-          "answer": "PDFCraft działa we wszystkich nowoczesnych przeglądarkach, w tym Chrome, Firefox, Safari i Edge. Aby uzyskać najlepszą jakość, zalecamy korzystanie z najnowszej wersji przeglądarki."
+          "answer": "PDFCompress działa we wszystkich nowoczesnych przeglądarkach, w tym Chrome, Firefox, Safari i Edge. Aby uzyskać najlepszą jakość, zalecamy korzystanie z najnowszej wersji przeglądarki."
         },
         "sizeLimit": {
           "question": "Czy istnieje limit rozmiaru pliku?",
@@ -1009,14 +1009,14 @@
           "answer": "Ponieważ całe przetwarzanie odbywa się w Twojej przeglądarce, wydajność zależy od możliwości Twojego urządzenia. Duże pliki wymagają więcej pamięci i mocy obliczeniowej. Aby uzyskać najlepsze wyniki, zamknij inne karty i aplikacje przeglądarki."
         },
         "offline": {
-          "question": "Czy PDFCraft działa w trybie offline?",
-          "answer": "Obecnie PDFCraft wymaga połączenia internetowego, aby załadować aplikację. Jednak po załadowaniu samo przetwarzanie odbywa się lokalnie i nie wymaga połączenia."
+          "question": "Czy PDFCompress działa w trybie offline?",
+          "answer": "Obecnie PDFCompress wymaga połączenia internetowego, aby załadować aplikację. Jednak po załadowaniu samo przetwarzanie odbywa się lokalnie i nie wymaga połączenia."
         }
       },
       "languages": {
         "supported": {
           "question": "Jakie języki są obsługiwane?",
-          "answer": "PDFCraft jest dostępny w 9 językach: angielskim, japońskim, koreańskim, hiszpańskim, francuskim, niemieckim, chińskim, portugalskim i arabskim (z obsługą RTL)."
+          "answer": "PDFCompress jest dostępny w 9 językach: angielskim, japońskim, koreańskim, hiszpańskim, francuskim, niemieckim, chińskim, portugalskim i arabskim (z obsługą RTL)."
         },
         "change": {
           "question": "Jak zmienić język?",
@@ -1047,7 +1047,7 @@
       },
       "fast": {
         "title": "Szybki i wydajny",
-        "description": "Oparty na nowoczesnych technologiach internetowych, PDFCraft zapewnia błyskawiczne przetwarzanie PDF bez konieczności przesyłania lub pobierania."
+        "description": "Oparty na nowoczesnych technologiach internetowych, PDFCompress zapewnia błyskawiczne przetwarzanie PDF bez konieczności przesyłania lub pobierania."
       },
       "accessible": {
         "title": "Dostępne wszędzie",
@@ -1055,7 +1055,7 @@
       },
       "free": {
         "title": "Bezpłatne na zawsze",
-        "description": "PDFCraft jest całkowicie darmowy, bez ukrytych kosztów, bez wymaganej rejestracji i bez ograniczeń użytkowania."
+        "description": "PDFCompress jest całkowicie darmowy, bez ukrytych kosztów, bez wymaganej rejestracji i bez ograniczeń użytkowania."
       },
       "openSource": {
         "title": "Otwarte źródło",
@@ -1093,7 +1093,7 @@
       "email": {
         "title": "E-mail",
         "description": "Wyślij nam e-mail, a my odpowiemy w ciągu 24-48 godzin.",
-        "action": "kontakt@pdfcraft.app"
+        "action": "kontakt@pdfcompress.app"
       },
       "github": {
         "title": "GitHub",
@@ -1103,7 +1103,7 @@
       "twitter": {
         "title": "Twitter",
         "description": "Śledź nas, aby otrzymywać aktualizacje i ogłoszenia.",
-        "action": "@pdfcraft"
+        "action": "@pdfcompress"
       }
     },
     "form": {
@@ -1235,7 +1235,7 @@
   "workflow": {
     "title": "Kreator przepływów pracy PDF",
     "subtitle": "Twórz własne przepływy przetwarzania PDF, łącząc narzędzia",
-    "metaTitle": "Kreator przepływów pracy PDF — PDFCraft",
+    "metaTitle": "Kreator przepływów pracy PDF — PDFCompress",
     "metaDescription": "Twórz własne przepływy przetwarzania PDF, wizualnie łącząc narzędzia. Twórz, zapisuj i ponownie wykorzystuj swoje przepływy pracy.",
     "toolbox": "Narzędzia",
     "dragToAdd": "Przeciągnij lub kliknij dwukrotnie narzędzie, aby dodać je do przepływu pracy",
