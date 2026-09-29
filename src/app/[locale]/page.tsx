@@ -1,5 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 import { locales, type Locale } from '@/lib/i18n/config';
+import { generateWebSiteSchema, generateOrganizationSchema } from '@/lib/seo';
+import { JsonLd } from '@/components/seo/JsonLd';
 import HomePageClient from './HomePageClient';
 
 export function generateStaticParams() {
@@ -15,6 +17,10 @@ export default async function HomePage({ params }: HomePageProps) {
 
   // Enable static rendering
   setRequestLocale(locale);
+
+  // Generate structured data for Google Knowledge Graph & Sitelinks SearchBox
+  const webSiteSchema = generateWebSiteSchema(locale as Locale);
+  const organizationSchema = generateOrganizationSchema();
 
   // Get localized content for tools
   const { tools } = await import('@/config/tools');
@@ -33,5 +39,11 @@ export default async function HomePage({ params }: HomePageProps) {
     return acc;
   }, {} as Record<string, { title: string; description: string }>);
 
-  return <HomePageClient locale={locale as Locale} localizedToolContent={localizedToolContent} />;
+  return (
+    <>
+      <JsonLd data={webSiteSchema} />
+      <JsonLd data={organizationSchema} />
+      <HomePageClient locale={locale as Locale} localizedToolContent={localizedToolContent} />
+    </>
+  );
 }

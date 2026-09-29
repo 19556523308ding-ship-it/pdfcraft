@@ -53,22 +53,40 @@ function generateLocaleEntries(locale: Locale, lastModified: Date): MetadataRout
   
   // Add static pages
   for (const page of STATIC_PAGES) {
+    const alternatesLanguages: Record<string, string> = {};
+    for (const l of locales) {
+      alternatesLanguages[l] = `${siteConfig.url}/${l}${page.path}`;
+    }
+    alternatesLanguages['x-default'] = `${siteConfig.url}/en${page.path}`;
+
     entries.push({
       url: `${siteConfig.url}/${locale}${page.path}`,
       lastModified,
       changeFrequency: page.changeFrequency as 'daily' | 'weekly' | 'monthly',
       priority: page.priority,
+      alternates: {
+        languages: alternatesLanguages,
+      },
     });
   }
   
   // Add tool pages
   const tools = getAllTools();
   for (const tool of tools) {
+    const toolAlternates: Record<string, string> = {};
+    for (const l of locales) {
+      toolAlternates[l] = `${siteConfig.url}/${l}/tools/${tool.slug}`;
+    }
+    toolAlternates['x-default'] = `${siteConfig.url}/en/tools/${tool.slug}`;
+
     entries.push({
       url: `${siteConfig.url}/${locale}/tools/${tool.slug}`,
       lastModified,
       changeFrequency: CHANGE_FREQUENCY.toolPage,
       priority: PRIORITY.toolPage,
+      alternates: {
+        languages: toolAlternates,
+      },
     });
   }
   

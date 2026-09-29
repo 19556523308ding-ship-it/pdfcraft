@@ -314,13 +314,21 @@ export function generateWebSiteSchema(locale: Locale): WebSiteSchema {
  * Generate Organization schema
  */
 export function generateOrganizationSchema(): OrganizationSchema {
+  const sameAs: string[] = [];
+  if (siteConfig.links.mainSite) {
+    sameAs.push(siteConfig.links.mainSite);
+  }
+  if (siteConfig.links.github) {
+    sameAs.push(siteConfig.links.github);
+  }
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: siteConfig.name,
     url: siteConfig.url,
     logo: `${siteConfig.url}/images/logo.png`,
-    sameAs: siteConfig.links.github ? [siteConfig.links.github] : [],
+    sameAs,
   };
 }
 

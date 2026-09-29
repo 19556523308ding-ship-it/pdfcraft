@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { locales, type Locale } from '@/lib/i18n/config';
-import { generateToolsListMetadata } from '@/lib/seo';
+import { generateToolsListMetadata, generateBreadcrumbSchema } from '@/lib/seo';
+import { JsonLd } from '@/components/seo/JsonLd';
 import ToolsPageClient from './ToolsPageClient';
 
 export function generateStaticParams() {
@@ -40,6 +41,7 @@ function ToolsPageFallback() {
 
 export default async function ToolsPage({ params }: ToolsPageProps) {
   const { locale } = await params;
+  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : 'en';
 
   // Enable static rendering
   setRequestLocale(locale);
@@ -49,7 +51,7 @@ export default async function ToolsPage({ params }: ToolsPageProps) {
   const { getToolContent } = await import('@/config/tool-content');
 
   const localizedToolContent = tools.reduce((acc, tool) => {
-    const content = getToolContent(locale as Locale, tool.id);
+    const content = getToolContent(validLocale, tool.id);
     if (content) {
       acc[tool.id] = {
         title: content.title,
@@ -59,11 +61,25 @@ export default async function ToolsPage({ params }: ToolsPageProps) {
     return acc;
   }, {} as Record<string, { title: string; description: string }>);
 
+  const tCommon = await getTranslations({ locale: validLocale, namespace: 'common' });
+  const tNav = await getTranslations({ locale: validLocale, namespace: 'nav' });
+
+  const breadcrumbSchema = generateBreadcrumbSchema(
+    [
+      { name: tCommon('home') || 'Home', path: '' },
+      { name: tNav('tools') || 'Tools', path: '/tools' },
+    ],
+    validLocale
+  );
+
   // Note: searchParams are handled client-side in ToolsPageClient
   // because static export doesn't support server-side searchParams
   return (
-    <Suspense fallback={<ToolsPageFallback />}>
-      <ToolsPageClient locale={locale as Locale} localizedToolContent={localizedToolContent} />
-    </Suspense>
+    <>
+      <JsonLd data={breadcrumbSchema} />
+      <Suspense fallback={<ToolsPageFallback />}>
+        <ToolsPageClient locale={validLocale} localizedToolContent={localizedToolContent} />
+      </Suspense>
+    </>
   );
 }
