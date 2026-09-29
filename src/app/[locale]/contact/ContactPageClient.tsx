@@ -60,12 +60,25 @@ export default function ContactPageClient({ locale }: ContactPageClientProps) {
     e.preventDefault();
     setFormStatus('submitting');
 
-    // Simulate form submission (in a real app, this would send to an API)
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const emailSubject = encodeURIComponent(`[PDFCompress 咨询] ${formData.subject || '用户留言'} - 来自 ${formData.name || '访客'}`);
+      const emailBody = encodeURIComponent(
+        `发信人姓名: ${formData.name}\n` +
+        `发信人邮箱: ${formData.email}\n` +
+        `咨询主题: ${formData.subject}\n\n` +
+        `留言详情:\n${formData.message}\n\n` +
+        `----------------------------------------\n` +
+        `此邮件来自 PDFCompress 联系表单`
+      );
 
-    // For demo purposes, always succeed
-    setFormStatus('success');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+      // 直接唤起系统邮件客户端发送给站长真实邮箱
+      window.location.href = `mailto:19556523308ding@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+
+      setFormStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch {
+      setFormStatus('error');
+    }
   };
 
   return (
