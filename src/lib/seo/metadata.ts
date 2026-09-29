@@ -256,6 +256,32 @@ export function generateContactMetadata(locale: Locale, translations?: { title: 
 }
 
 /**
+ * Generate metadata for the terms of service page
+ */
+export function generateTermsMetadata(locale: Locale, translations?: { title: string; description: string }): Metadata {
+  return generateBaseMetadata({
+    locale,
+    path: '/terms',
+    title: translations?.title || 'Terms of Service',
+    description: translations?.description || `${siteConfig.name} terms of service. Guidelines, terms and conditions for using our private, browser-based PDF tools.`,
+    keywords: ['terms of service', 'terms', 'conditions', 'legal', 'user agreement'],
+  });
+}
+
+/**
+ * Generate metadata for the cookie policy page
+ */
+export function generateCookiesMetadata(locale: Locale, translations?: { title: string; description: string }): Metadata {
+  return generateBaseMetadata({
+    locale,
+    path: '/cookies',
+    title: translations?.title || 'Cookie Policy',
+    description: translations?.description || `${siteConfig.name} cookie policy. How we use local storage and cookies to remember your preferences with zero tracking.`,
+    keywords: ['cookie policy', 'cookies', 'privacy', 'local storage', 'GDPR'],
+  });
+}
+
+/**
  * Convert locale to Open Graph locale format
  */
 export function getOpenGraphLocale(locale: Locale): string {

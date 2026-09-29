@@ -32,6 +32,14 @@
       "convertPdf": "PDF 변환",
       "freePdfTools": "무료 PDF 도구",
       "onlinePdfEditor": "온라인 PDF 편집기"
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "PDFCompress terms of service. Guidelines and conditions for using our private, browser-based PDF tools."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "description": "PDFCompress cookie policy. Learn how we handle cookies with full GDPR compliance."
     }
   },
   "common": {
@@ -44,7 +52,9 @@
       "about": "소개",
       "faq": "자주 묻는 질문",
       "privacy": "은둔",
-      "contact": "문의하기"
+      "contact": "문의하기",
+      "terms": "Terms",
+      "cookies": "Cookies"
     },
     "buttons": {
       "upload": "파일 업로드",

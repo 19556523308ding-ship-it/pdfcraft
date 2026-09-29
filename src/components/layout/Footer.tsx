@@ -22,6 +22,8 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
     { href: `/${locale}/about`, label: t('navigation.about') },
     { href: `/${locale}/faq`, label: t('navigation.faq') },
     { href: `/${locale}/privacy`, label: t('navigation.privacy') },
+    { href: `/${locale}/terms`, label: t('navigation.terms') || 'Terms' },
+    { href: `/${locale}/cookies`, label: t('navigation.cookies') || 'Cookies' },
     { href: `/${locale}/contact`, label: t('navigation.contact') },
   ];
 

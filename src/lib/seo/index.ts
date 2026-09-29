@@ -14,6 +14,8 @@ export {
   generateFaqMetadata,
   generatePrivacyMetadata,
   generateContactMetadata,
+  generateTermsMetadata,
+  generateCookiesMetadata,
   getCanonicalUrl,
   getAlternateUrls,
   getOpenGraphLocale,

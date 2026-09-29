@@ -32,6 +32,14 @@
       "convertPdf": "konwertuj PDF",
       "freePdfTools": "bezpłatne narzędzia PDF",
       "onlinePdfEditor": "edytor PDF online"
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "PDFCompress terms of service. Guidelines and conditions for using our private, browser-based PDF tools."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "description": "PDFCompress cookie policy. Learn how we handle cookies with full GDPR compliance."
     }
   },
   "common": {
@@ -44,7 +52,9 @@
       "about": "O PDFCompress",
       "faq": "Często zadawane pytania",
       "privacy": "Prywatność",
-      "contact": "Kontakt"
+      "contact": "Kontakt",
+      "terms": "Terms",
+      "cookies": "Cookies"
     },
     "buttons": {
       "upload": "Prześlij pliki",

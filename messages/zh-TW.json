@@ -32,6 +32,14 @@
       "convertPdf": "轉換 PDF",
       "freePdfTools": "免費 PDF 工具",
       "onlinePdfEditor": "線上 PDF 編輯器"
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "PDFCompress terms of service. Guidelines and conditions for using our private, browser-based PDF tools."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "description": "PDFCompress cookie policy. Learn how we handle cookies with full GDPR compliance."
     }
   },
   "common": {
@@ -44,7 +52,9 @@
       "about": "關於",
       "faq": "常見問題",
       "privacy": "隱私",
-      "contact": "聯絡我們"
+      "contact": "聯絡我們",
+      "terms": "Terms",
+      "cookies": "Cookies"
     },
     "buttons": {
       "upload": "上傳檔案",

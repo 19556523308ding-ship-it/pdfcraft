@@ -20,6 +20,14 @@
       "title": "Privacy Policy",
       "description": "PDFCompress privacy policy. Your files never leave your device - all processing happens locally in your browser."
     },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "PDFCompress terms of service. Guidelines, terms and conditions for using our private, browser-based PDF tools."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "description": "PDFCompress cookie policy. Learn how we handle cookies and local storage with full GDPR compliance."
+    },
     "contact": {
       "title": "Contact Us",
       "description": "Get in touch with PDFCompress team. We'd love to hear from you."
@@ -44,6 +52,8 @@
       "about": "About",
       "faq": "FAQ",
       "privacy": "Privacy",
+      "terms": "Terms",
+      "cookies": "Cookies",
       "contact": "Contact"
     },
     "buttons": {

@@ -32,6 +32,14 @@
       "convertPdf": "PDF変換",
       "freePdfTools": "無料PDFツール",
       "onlinePdfEditor": "オンラインPDFエディター"
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "PDFCompress terms of service. Guidelines and conditions for using our private, browser-based PDF tools."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "description": "PDFCompress cookie policy. Learn how we handle cookies with full GDPR compliance."
     }
   },
   "common": {
@@ -44,7 +52,9 @@
       "about": "概要",
       "faq": "よくある質問",
       "privacy": "プライバシー",
-      "contact": "お問い合わせ"
+      "contact": "お問い合わせ",
+      "terms": "Terms",
+      "cookies": "Cookies"
     },
     "buttons": {
       "upload": "ファイルをアップロード",

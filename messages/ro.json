@@ -32,6 +32,14 @@
       "convertPdf": "convertește PDF",
       "freePdfTools": "instrumente PDF gratuite",
       "onlinePdfEditor": "editor PDF online"
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "PDFCompress terms of service. Guidelines and conditions for using our private, browser-based PDF tools."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "description": "PDFCompress cookie policy. Learn how we handle cookies with full GDPR compliance."
     }
   },
   "common": {
@@ -44,7 +52,9 @@
       "about": "Despre",
       "faq": "FAQ",
       "privacy": "Confidențialitate",
-      "contact": "Contact"
+      "contact": "Contact",
+      "terms": "Terms",
+      "cookies": "Cookies"
     },
     "buttons": {
       "upload": "Încarcă Fișiere",
