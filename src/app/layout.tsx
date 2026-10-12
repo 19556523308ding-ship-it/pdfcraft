@@ -37,6 +37,7 @@ export default function RootLayout({
           }}
         />
         <script defer src="https://umami.aixmb.cn/script.js" data-website-id="88a52d9c-3013-4a9b-bd41-bfd724b71faa"></script>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5777864556239380" crossOrigin="anonymous"></script>
       </head>
       <body className="min-h-screen bg-background text-foreground antialiased">
         {children}
