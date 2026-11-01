@@ -36,7 +36,12 @@ export default function RootLayout({
             `,
           }}
         />
-        <script defer src="https://umami.aixmb.cn/script.js" data-website-id="88a52d9c-3013-4a9b-bd41-bfd724b71faa"></script>
+        <script defer src="https://umami.jinzhai.icu/script.js" data-website-id="eabd1a61-fb02-4c20-95f1-5a3313a8e44a"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.addEventListener("click",function(e){var a=e.target&&e.target.closest?e.target.closest("a[href]"):null;if(!a||!window.umami)return;try{var u=new URL(a.href,location.href);if(u.hostname&&u.hostname!==location.hostname){window.umami.track("aff-click",{merchant:u.hostname,page:location.pathname,target:(u.hostname+u.pathname).slice(0,120)})}}catch(_){}});`,
+          }}
+        />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5777864556239380" crossOrigin="anonymous"></script>
       </head>
       <body className="min-h-screen bg-background text-foreground antialiased">
