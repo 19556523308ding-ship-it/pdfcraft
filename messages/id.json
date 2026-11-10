@@ -2755,7 +2755,15 @@
       "fieldLabelPlaceholder": "Masukkan teks label...",
       "labelPosition": "Posisi",
       "labelAbove": "Di atas",
-      "labelLeft": "Di kiri"
+      "labelLeft": "Di kiri",
+      "labelTool": "Label",
+      "textareaTool": "Textarea",
+      "labelText": "Label Text",
+      "labelTextPlaceholder": "Enter label text...",
+      "labelStaticHint": "Labels are static text printed on the page — they are not fillable fields.",
+      "labelFontSize": "Font Size",
+      "needFullCreator": "Need blank pages, templates or advanced fields?",
+      "openFullCreator": "Open the full Form Creator"
     },
     "removeBlankPages": {
       "uploadLabel": "Unggah File PDF",

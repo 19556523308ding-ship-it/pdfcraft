@@ -2755,7 +2755,15 @@
       "fieldLabelPlaceholder": "Nhập văn bản nhãn...",
       "labelPosition": "Vị trí",
       "labelAbove": "Bên trên",
-      "labelLeft": "Bên trái"
+      "labelLeft": "Bên trái",
+      "labelTool": "Label",
+      "textareaTool": "Textarea",
+      "labelText": "Label Text",
+      "labelTextPlaceholder": "Enter label text...",
+      "labelStaticHint": "Labels are static text printed on the page — they are not fillable fields.",
+      "labelFontSize": "Font Size",
+      "needFullCreator": "Need blank pages, templates or advanced fields?",
+      "openFullCreator": "Open the full Form Creator"
     },
     "removeBlankPages": {
       "uploadLabel": "Tải lên tệp PDF",

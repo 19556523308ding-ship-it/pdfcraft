@@ -46,6 +46,7 @@ import { StampsTool } from '@/components/tools/stamps';
 import { RemoveAnnotationsTool } from '@/components/tools/remove-annotations';
 import { FormFillerTool } from '@/components/tools/form-filler';
 import { FormCreatorTool } from '@/components/tools/form-creator';
+import { FormBuilderTool } from '@/components/tools/form-builder';
 import { RemoveBlankPagesTool } from '@/components/tools/remove-blank-pages';
 import { PDFToImageTool } from '@/components/tools/pdf-to-image';
 import { PDFToGreyscaleTool } from '@/components/tools/pdf-to-greyscale';
@@ -358,6 +359,8 @@ export default async function ToolPageRoute({ params }: ToolPageParams) {
         return <FormFillerTool />;
       case 'form-creator':
         return <FormCreatorTool />;
+      case 'form-builder':
+        return <FormBuilderTool />;
       case 'remove-blank-pages':
         return <RemoveBlankPagesTool />;
       case 'pdf-to-jpg':

@@ -2756,7 +2756,15 @@
       "fieldLabelPlaceholder": "输入标签文本...",
       "labelPosition": "位置",
       "labelAbove": "上方",
-      "labelLeft": "左侧"
+      "labelLeft": "左侧",
+      "labelTool": "标签",
+      "textareaTool": "多行文本",
+      "labelText": "标签文字",
+      "labelTextPlaceholder": "输入标签文字…",
+      "labelStaticHint": "标签是印在页面上的静态文字，不是可填写字段。",
+      "labelFontSize": "字号",
+      "needFullCreator": "需要空白页、模板或高级字段？",
+      "openFullCreator": "打开完整版表单创建工具"
     },
     "removeBlankPages": {
       "uploadLabel": "上传PDF文件",

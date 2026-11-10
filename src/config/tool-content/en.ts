@@ -671,6 +671,33 @@ export const toolContentEn: Record<string, ToolContent> = {
     ],
   },
 
+  'form-builder': {
+    title: 'PDF Form Builder',
+    metaDescription: 'Quickly add fillable fields to an existing PDF — text fields, checkboxes, radio buttons and text labels. Free, runs locally in your browser.',
+    keywords: ['pdf form builder', 'add form fields to pdf', 'fillable pdf builder', 'add labels to pdf form'],
+    description: `
+      <p>PDF Form Builder is the fast way to turn an existing PDF into a fillable form. Upload your document, click to place a few common fields — text fields, multi-line text areas, checkboxes and radio buttons — and download the result. No blank-page setup, no templates, no learning curve.</p>
+      <p>You can also add text labels: static text printed directly on the page to title sections or explain what to fill in. Labels are not fillable fields — they are simply text on the document.</p>
+      <p>Need more? If you want to start from a blank page, use ready-made templates, or add dropdowns, dates and signature fields, use the full Form Creator instead. All processing happens locally in your browser, so your documents stay private.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload Your PDF', description: 'Drag and drop the existing PDF you want to turn into a form, or click to select it.' },
+      { step: 2, title: 'Add Fields and Labels', description: 'Pick a field type, click on the document to place it, drag to position it, and edit its text in the properties panel.' },
+      { step: 3, title: 'Download Your Form', description: 'Create and download your fillable PDF form, ready to send and be filled in electronically.' },
+    ],
+    useCases: [
+      { title: 'Simple Application Forms', description: 'Quickly add name, contact and consent fields to an existing application document.', icon: 'user-plus' },
+      { title: 'Checklists and Sign-up Sheets', description: 'Drop checkboxes and radio buttons onto a checklist or sign-up sheet in minutes.', icon: 'clipboard-list' },
+      { title: 'Labeling Document Sections', description: 'Print clear section titles and instructions onto a document with static text labels.', icon: 'tag' },
+    ],
+    faq: [
+      { question: 'What is the difference between Form Builder and Form Creator?', answer: 'Form Builder is the quick option: it only works on an existing PDF and offers the five most common items — text, multi-line text, checkbox, radio button and label. Form Creator is the full tool: it can start from blank pages or templates and adds dropdowns, dates, signatures and advanced editing.' },
+      { question: 'Which field types are supported?', answer: 'Text fields, multi-line text areas, checkboxes, radio buttons and static text labels.' },
+      { question: 'Are labels fillable?', answer: 'No. Labels are static text printed on the page, useful for titles and instructions. Only the other field types can be filled in.' },
+      { question: 'Is it private?', answer: 'Yes. Your PDF is processed entirely in your browser and is never uploaded to a server.' },
+    ],
+  },
+
   'remove-blank-pages': {
     title: 'Remove Blank Pages',
     metaDescription: 'Automatically detect and remove blank pages from PDF documents.',

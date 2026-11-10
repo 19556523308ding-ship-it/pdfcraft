@@ -7,15 +7,102 @@ import type { ProcessInput, ProcessOutput, ProgressCallback } from '@/types/pdf'
 import { PDFErrorCode } from '@/types/pdf';
 import { BasePDFProcessor } from '../processor';
 import { loadPdfLib } from '../loader';
+import { withBasePath } from '../../utils/path';
+
+type PdfLib = Awaited<ReturnType<typeof loadPdfLib>>;
+type PdfDoc = Awaited<ReturnType<PdfLib['PDFDocument']['load']>>;
+type PdfPage = ReturnType<PdfDoc['getPage']>;
+type PdfFont = Awaited<ReturnType<PdfDoc['embedFont']>>;
+
+// Cache for the CJK label font bytes (Noto Sans SC, shipped in public/fonts)
+let cjkFontBytesCache: ArrayBuffer | null = null;
+
+/**
+ * Embed the CJK-capable Noto Sans SC font (same asset the LibreOffice
+ * converter ships) so static labels with non-WinAnsi text (e.g. Chinese)
+ * can be drawn. Returns null when the font cannot be loaded.
+ */
+async function embedCjkLabelFont(pdf: PdfDoc, pdfLib: PdfLib): Promise<PdfFont | null> {
+  try {
+    if (!cjkFontBytesCache) {
+      const response = await fetch(withBasePath('/fonts/NotoSansSC-Regular.ttf'));
+      if (!response.ok) return null;
+      cjkFontBytesCache = await response.arrayBuffer();
+    }
+    const fontkit = await import('@pdf-lib/fontkit');
+    pdf.registerFontkit((fontkit.default || fontkit) as Parameters<PdfDoc['registerFontkit']>[0]);
+    return await pdf.embedFont(new Uint8Array(cjkFontBytesCache), { subset: true });
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Draw a static label (plain page text, NOT an AcroForm field).
+ * Uses Helvetica for WinAnsi-encodable text; falls back to the embedded
+ * Noto Sans SC font for CJK text. Shrinks the font to fit the box width
+ * (minimum ~6pt). A label that cannot be drawn is skipped silently so it
+ * never fails the whole export.
+ */
+async function drawStaticLabel(
+  pdf: PdfDoc,
+  pdfLib: PdfLib,
+  page: PdfPage,
+  text: string,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  preferredFontSize?: number
+): Promise<boolean> {
+  try {
+    let font: PdfFont = await pdf.embedFont(pdfLib.StandardFonts.Helvetica);
+    let fontSize = preferredFontSize ?? 12;
+
+    // Helvetica (WinAnsi) throws when measuring text it cannot encode.
+    let helveticaCanEncode = true;
+    try {
+      font.widthOfTextAtSize(text, fontSize);
+    } catch {
+      helveticaCanEncode = false;
+    }
+
+    if (!helveticaCanEncode) {
+      const cjkFont = await embedCjkLabelFont(pdf, pdfLib);
+      if (!cjkFont) return false;
+      font = cjkFont;
+    }
+
+    // Shrink to fit the box width, down to a 6pt floor.
+    const textWidth = font.widthOfTextAtSize(text, fontSize);
+    if (textWidth > width && textWidth > 0) {
+      fontSize = Math.max(6, (fontSize * width) / textWidth);
+    }
+
+    page.drawText(text, {
+      x,
+      y: y + Math.max(0, (height - fontSize) / 2),
+      size: fontSize,
+      font,
+      color: pdfLib.rgb(0, 0, 0),
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 export interface FormField {
-  type: 'text' | 'checkbox' | 'dropdown' | 'radio' | 'button' | 'signature' | 'date' | 'listbox';
+  type: 'text' | 'checkbox' | 'dropdown' | 'radio' | 'button' | 'signature' | 'date' | 'listbox' | 'label';
   name: string;
   pageNumber: number;
   x: number;
   y: number;
   width: number;
   height: number;
+  // Static label fields only: the text drawn on the page (not a form field)
+  text?: string;
+  fontSize?: number;
   options?: string[]; // For dropdown/radio/listbox
   defaultValue?: string | boolean;
   required?: boolean;
@@ -211,6 +298,22 @@ export class FormCreatorProcessor extends BasePDFProcessor {
               createdCount++;
               break;
             }
+            case 'label': {
+              // Static text label: drawn directly on the page.
+              // Deliberately NOT an AcroForm field and not counted in createdCount.
+              await drawStaticLabel(
+                pdf,
+                pdfLib,
+                page,
+                fieldDef.text ?? 'Label',
+                adjustedX,
+                adjustedY,
+                fieldDef.width,
+                fieldDef.height,
+                fieldDef.fontSize
+              );
+              break;
+            }
             case 'listbox': {
               // Listbox/Option List field
               const optionList = form.createOptionList(fieldName);
@@ -234,8 +337,8 @@ export class FormCreatorProcessor extends BasePDFProcessor {
             }
           }
 
-          // Draw label if specified
-          if (fieldDef.label) {
+          // Draw label if specified (not for static label fields themselves)
+          if (fieldDef.label && fieldDef.type !== 'label') {
             const labelFontSize = 10;
             const labelText = fieldDef.label;
             const font = await pdf.embedFont(pdfLib.StandardFonts.Helvetica);

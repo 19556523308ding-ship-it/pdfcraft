@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Save, FolderOpen, Trash2, Copy, Undo2, Redo2, AlignLeft, AlignCenterHorizontal, AlignRight, AlignStartVertical, AlignCenterVertical, AlignEndVertical, FilePlus2 } from 'lucide-react';
 import { PDFDocument, PageSizes } from 'pdf-lib';
 import { FileUploader } from '../FileUploader';
@@ -32,9 +32,20 @@ const loadPdfjsLib = async () => {
 
 export interface FormCreatorToolProps {
   className?: string;
+  /**
+   * 'full' (default): the complete Form Creator — blank PDFs, templates,
+   * all field types and advanced actions.
+   * 'builder': the simplified Form Builder preset — upload an existing PDF
+   * only, a small field palette (text, textarea, checkbox, radio, label)
+   * and no blank-page/template actions.
+   */
+  preset?: 'full' | 'builder';
 }
 
-type FieldType = 'text' | 'checkbox' | 'dropdown' | 'radio' | 'button' | 'signature' | 'date' | 'listbox';
+type FieldType = 'text' | 'checkbox' | 'dropdown' | 'radio' | 'button' | 'signature' | 'date' | 'listbox' | 'label';
+
+/** Palette selection: real field types plus the builder-only 'textarea' pseudo-tool */
+type ToolSelection = FieldType | 'select' | 'textarea';
 
 interface VisualField extends FormField {
   id: string;
@@ -169,9 +180,11 @@ const formTemplates: FormTemplate[] = [
   },
 ];
 
-export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
+export function FormCreatorTool({ className = '', preset = 'full' }: FormCreatorToolProps) {
   const t = useTranslations('common');
   const tTools = useTranslations('tools');
+  const locale = useLocale();
+  const isBuilder = preset === 'builder';
 
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<ProcessingStatus>('idle');
@@ -183,7 +196,7 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
   // Visual editor state
   const [fields, setFields] = useState<VisualField[]>([]);
   const [selectedFieldId, setSelectedFieldId] = useState<string | null>(null);
-  const [currentTool, setCurrentTool] = useState<FieldType | 'select'>('select');
+  const [currentTool, setCurrentTool] = useState<ToolSelection>('select');
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState({ width: 0, height: 0 });
@@ -471,8 +484,9 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
     // Convert to PDF coordinates (origin at bottom-left)
     const pdfY = (pageSize.height / scale) - y;
 
-    const defaultSizes: Record<FieldType, { width: number; height: number }> = {
+    const defaultSizes: Record<string, { width: number; height: number }> = {
       text: { width: 200, height: 24 },
+      textarea: { width: 200, height: 60 },
       checkbox: { width: 20, height: 20 },
       dropdown: { width: 200, height: 24 },
       radio: { width: 20, height: 20 },
@@ -480,22 +494,30 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
       signature: { width: 200, height: 60 },
       date: { width: 150, height: 24 },
       listbox: { width: 200, height: 80 },
+      label: { width: 160, height: 24 },
     };
+
+    // The builder palette's Textarea is a multiline text field, not a new type
+    const isTextarea = currentTool === 'textarea';
+    const fieldType: FieldType = isTextarea ? 'text' : currentTool;
 
     const newField: VisualField = {
       id: generateId(),
-      type: currentTool,
-      name: `${currentTool}_${fields.filter(f => f.type === currentTool).length + 1}`,
+      type: fieldType,
+      name: `${currentTool}_${fields.filter(f => f.type === fieldType && (!isTextarea || f.multiline)).length + 1}`,
       pageNumber: currentPage,
       x: x,
       y: pdfY,
       width: defaultSizes[currentTool].width,
       height: defaultSizes[currentTool].height,
-      options: ['dropdown', 'radio', 'listbox'].includes(currentTool) ? ['Option 1', 'Option 2', 'Option 3'] : undefined,
-      buttonLabel: currentTool === 'button' ? 'Submit' : undefined,
-      signatureLabel: currentTool === 'signature' ? 'Sign here' : undefined,
-      dateFormat: currentTool === 'date' ? 'YYYY-MM-DD' : undefined,
-      multiSelect: currentTool === 'listbox' ? false : undefined,
+      options: ['dropdown', 'radio', 'listbox'].includes(fieldType) ? ['Option 1', 'Option 2', 'Option 3'] : undefined,
+      buttonLabel: fieldType === 'button' ? 'Submit' : undefined,
+      signatureLabel: fieldType === 'signature' ? 'Sign here' : undefined,
+      dateFormat: fieldType === 'date' ? 'YYYY-MM-DD' : undefined,
+      multiSelect: fieldType === 'listbox' ? false : undefined,
+      multiline: isTextarea ? true : undefined,
+      text: fieldType === 'label' ? 'Label' : undefined,
+      fontSize: fieldType === 'label' ? 12 : undefined,
     };
 
     setFields(prev => [...prev, newField]);
@@ -909,6 +931,7 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
     { type: 'signature' as const, icon: '✍', labelKey: 'signatureTool' },
     { type: 'date' as const, icon: '📅', labelKey: 'dateTool' },
     { type: 'listbox' as const, icon: '📋', labelKey: 'listboxTool' },
+    { type: 'label' as const, icon: '🏷️', labelKey: 'labelTool' },
   ];
 
   // Get field style for overlay
@@ -945,6 +968,7 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
       case 'signature': return '✍';
       case 'date': return '📅';
       case 'listbox': return '📋';
+      case 'label': return '🏷️';
       default: return '📄';
     }
   };
@@ -964,38 +988,55 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
             description={tTools('formCreator.uploadDescription') || 'Drag and drop a PDF file here.'}
           />
 
-          {/* Or create blank PDF */}
-          <div className="flex items-center gap-4">
-            <div className="flex-1 h-px bg-gray-200" />
-            <span className="text-sm text-gray-400">{tTools('formCreator.orCreateBlank') || 'Or'}</span>
-            <div className="flex-1 h-px bg-gray-200" />
-          </div>
-
-          <button
-            onClick={() => setShowBlankPdfDialog(true)}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-colors"
-          >
-            <FilePlus2 className="w-5 h-5 text-blue-500" />
-            <span className="text-sm font-medium text-gray-600">{tTools('formCreator.createBlankPdf') || 'Create Blank PDF'}</span>
-          </button>
-
-          {/* Templates */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-            {formTemplates.map(template => (
-              <button
-                key={template.id}
-                onClick={() => createFromTemplate(template)}
-                className="flex flex-col items-center justify-center gap-2 p-4 border border-gray-200 rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-colors group"
+          {/* Builder preset: upload only — no blank PDFs or templates */}
+          {isBuilder && (
+            <p className="text-sm text-center text-gray-500">
+              {tTools('formCreator.needFullCreator') || 'Need blank pages, templates or advanced fields?'}{' '}
+              <a
+                href={`/${locale}/tools/form-creator/`}
+                className="text-blue-600 hover:underline font-medium"
               >
-                <span className="text-2xl">{template.icon}</span>
-                <span className="text-xs font-medium text-gray-600 text-center group-hover:text-blue-600">{tTools(`formCreator.template.${template.id}`) || template.name}</span>
-              </button>
-            ))}
-          </div>
+                {tTools('formCreator.openFullCreator') || 'Open the full Form Creator'}
+              </a>
+            </p>
+          )}
 
-          <p className="text-xs text-gray-400 text-center">
-            {tTools('formCreator.templateHint') || 'Or choose a template to get started quickly'}
-          </p>
+          {!isBuilder && (
+            <>
+              {/* Or create blank PDF */}
+              <div className="flex items-center gap-4">
+                <div className="flex-1 h-px bg-gray-200" />
+                <span className="text-sm text-gray-400">{tTools('formCreator.orCreateBlank') || 'Or'}</span>
+                <div className="flex-1 h-px bg-gray-200" />
+              </div>
+
+              <button
+                onClick={() => setShowBlankPdfDialog(true)}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-colors"
+              >
+                <FilePlus2 className="w-5 h-5 text-blue-500" />
+                <span className="text-sm font-medium text-gray-600">{tTools('formCreator.createBlankPdf') || 'Create Blank PDF'}</span>
+              </button>
+
+              {/* Templates */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                {formTemplates.map(template => (
+                  <button
+                    key={template.id}
+                    onClick={() => createFromTemplate(template)}
+                    className="flex flex-col items-center justify-center gap-2 p-4 border border-gray-200 rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-colors group"
+                  >
+                    <span className="text-2xl">{template.icon}</span>
+                    <span className="text-xs font-medium text-gray-600 text-center group-hover:text-blue-600">{tTools(`formCreator.template.${template.id}`) || template.name}</span>
+                  </button>
+                ))}
+              </div>
+
+              <p className="text-xs text-gray-400 text-center">
+                {tTools('formCreator.templateHint') || 'Or choose a template to get started quickly'}
+              </p>
+            </>
+          )}
         </div>
       )}
 
@@ -1003,6 +1044,18 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
         <div className="p-4 rounded-[var(--radius-md)] bg-red-50 border border-red-200 text-red-700">
           <p className="text-sm">{error}</p>
         </div>
+      )}
+
+      {file && isBuilder && (
+        <p className="text-xs text-gray-500">
+          {tTools('formCreator.needFullCreator') || 'Need blank pages, templates or advanced fields?'}{' '}
+          <a
+            href={`/${locale}/tools/form-creator/`}
+            className="text-blue-600 hover:underline font-medium"
+          >
+            {tTools('formCreator.openFullCreator') || 'Open the full Form Creator'}
+          </a>
+        </p>
       )}
 
       {file && (
@@ -1016,26 +1069,40 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
                 <span className="text-xs font-medium text-gray-500">{tTools('formCreator.addField') || 'Add'}:</span>
                 <select
                   value={currentTool}
-                  onChange={(e) => setCurrentTool(e.target.value as FieldType | 'select')}
+                  onChange={(e) => setCurrentTool(e.target.value as ToolSelection)}
                   className="px-2 py-1.5 text-sm border rounded-md bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="select">↖ {tTools('formCreator.selectTool')}</option>
-                  <optgroup label={tTools('formCreator.basicTools') || 'Basic'}>
-                    <option value="text">📝 {tTools('formCreator.textFieldTool')}</option>
-                    <option value="checkbox">☑ {tTools('formCreator.checkboxTool')}</option>
-                    <option value="dropdown">▼ {tTools('formCreator.dropdownTool')}</option>
-                    <option value="radio">◉ {tTools('formCreator.radioTool')}</option>
-                  </optgroup>
-                  <optgroup label={tTools('formCreator.advancedTools') || 'Advanced'}>
-                    <option value="button">🔘 {tTools('formCreator.buttonTool')}</option>
-                    <option value="signature">✍ {tTools('formCreator.signatureTool')}</option>
-                    <option value="date">📅 {tTools('formCreator.dateTool')}</option>
-                    <option value="listbox">📋 {tTools('formCreator.listboxTool')}</option>
-                  </optgroup>
+                  {isBuilder ? (
+                    <>
+                      <option value="text">📝 {tTools('formCreator.textFieldTool')}</option>
+                      <option value="textarea">📄 {tTools('formCreator.textareaTool') || 'Textarea'}</option>
+                      <option value="checkbox">☑ {tTools('formCreator.checkboxTool')}</option>
+                      <option value="radio">◉ {tTools('formCreator.radioTool')}</option>
+                      <option value="label">🏷️ {tTools('formCreator.labelTool') || 'Label'}</option>
+                    </>
+                  ) : (
+                    <>
+                      <optgroup label={tTools('formCreator.basicTools') || 'Basic'}>
+                        <option value="text">📝 {tTools('formCreator.textFieldTool')}</option>
+                        <option value="checkbox">☑ {tTools('formCreator.checkboxTool')}</option>
+                        <option value="dropdown">▼ {tTools('formCreator.dropdownTool')}</option>
+                        <option value="radio">◉ {tTools('formCreator.radioTool')}</option>
+                        <option value="label">🏷️ {tTools('formCreator.labelTool') || 'Label'}</option>
+                      </optgroup>
+                      <optgroup label={tTools('formCreator.advancedTools') || 'Advanced'}>
+                        <option value="button">🔘 {tTools('formCreator.buttonTool')}</option>
+                        <option value="signature">✍ {tTools('formCreator.signatureTool')}</option>
+                        <option value="date">📅 {tTools('formCreator.dateTool')}</option>
+                        <option value="listbox">📋 {tTools('formCreator.listboxTool')}</option>
+                      </optgroup>
+                    </>
+                  )}
                 </select>
               </div>
 
-              {/* Template Selector */}
+              {/* Template Selector (full preset only) */}
+              {!isBuilder && (
               <div className="flex items-center gap-2">
                 <span className="text-xs font-medium text-gray-500">{tTools('formCreator.templates') || 'Template'}:</span>
                 <select
@@ -1066,6 +1133,7 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
                   ))}
                 </select>
               </div>
+              )}
 
               <div className="w-px h-6 bg-gray-200" />
 
@@ -1127,7 +1195,8 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
                   →
                 </button>
 
-                {/* Add Blank Page dropdown */}
+                {/* Add Blank Page dropdown (full preset only) */}
+                {!isBuilder && (
                 <div
                   className="relative"
                   onMouseEnter={() => {
@@ -1176,6 +1245,7 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
                     </button>
                   </div>
                 </div>
+                )}
               </div>
             </div>
 
@@ -1204,7 +1274,11 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
                       onClick={(e) => handleFieldClick(e, field.id)}
                       onMouseDown={(e) => handleFieldMouseDown(e, field.id)}
                     >
-                      <span>{getFieldIcon(field.type)} {field.name}</span>
+                      {field.type === 'label' ? (
+                        <span className="px-1 truncate" style={{ fontSize: '12px' }}>{field.text || 'Label'}</span>
+                      ) : (
+                        <span>{getFieldIcon(field.type)} {field.name}</span>
+                      )}
 
                       {/* Label indicator */}
                       {field.label && (
@@ -1313,15 +1387,45 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
                       >
                         <option value="text">📝 {tTools('formCreator.textFieldTool')}</option>
                         <option value="checkbox">☑ {tTools('formCreator.checkboxTool')}</option>
-                        <option value="dropdown">▼ {tTools('formCreator.dropdownTool')}</option>
+                        {!isBuilder && <option value="dropdown">▼ {tTools('formCreator.dropdownTool')}</option>}
                         <option value="radio">◉ {tTools('formCreator.radioTool')}</option>
-                        <option value="button">🔘 {tTools('formCreator.buttonTool')}</option>
-                        <option value="signature">✍ {tTools('formCreator.signatureTool')}</option>
-                        <option value="date">📅 {tTools('formCreator.dateTool')}</option>
-                        <option value="listbox">📋 {tTools('formCreator.listboxTool')}</option>
+                        {!isBuilder && <option value="button">🔘 {tTools('formCreator.buttonTool')}</option>}
+                        {!isBuilder && <option value="signature">✍ {tTools('formCreator.signatureTool')}</option>}
+                        {!isBuilder && <option value="date">📅 {tTools('formCreator.dateTool')}</option>}
+                        {!isBuilder && <option value="listbox">📋 {tTools('formCreator.listboxTool')}</option>}
+                        <option value="label">🏷️ {tTools('formCreator.labelTool') || 'Label'}</option>
                       </select>
 
-                      {/* Label */}
+                      {/* Static label content (label fields only) */}
+                      {selectedField.type === 'label' && (
+                        <>
+                          <div>
+                            <label className="block text-sm font-medium mb-1">{tTools('formCreator.labelText') || 'Label Text'}</label>
+                            <input
+                              type="text"
+                              value={selectedField.text || ''}
+                              onChange={(e) => updateSelectedField({ text: e.target.value })}
+                              placeholder={tTools('formCreator.labelTextPlaceholder') || 'Enter label text...'}
+                              className="w-full px-3 py-2 border rounded-[var(--radius-md)] text-sm"
+                            />
+                            <p className="text-xs text-gray-400 mt-1">{tTools('formCreator.labelStaticHint') || 'Labels are static text printed on the page — they are not fillable fields.'}</p>
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-1">{tTools('formCreator.labelFontSize') || 'Font Size'}</label>
+                            <input
+                              type="number"
+                              min={6}
+                              max={72}
+                              value={selectedField.fontSize ?? 12}
+                              onChange={(e) => updateSelectedField({ fontSize: parseInt(e.target.value) || 12 })}
+                              className="w-full px-3 py-2 border rounded-[var(--radius-md)] text-sm"
+                            />
+                          </div>
+                        </>
+                      )}
+
+                      {/* Label (caption for interactive fields) */}
+                      {selectedField.type !== 'label' && (
                       <div>
                         <label className="block text-sm font-medium mb-1">{tTools('formCreator.fieldLabel') || 'Label'}</label>
                         <input
@@ -1332,9 +1436,10 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
                           className="w-full px-3 py-2 border rounded-[var(--radius-md)] text-sm"
                         />
                       </div>
+                      )}
 
                       {/* Label Position */}
-                      {selectedField.label && (
+                      {selectedField.type !== 'label' && selectedField.label && (
                         <div className="flex items-center gap-2">
                           <span className="text-sm text-gray-500">{tTools('formCreator.labelPosition') || 'Position'}:</span>
                           <label className="flex items-center gap-1 text-sm">
@@ -1514,7 +1619,8 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
                         </div>
                       )}
 
-                      {/* Required field option */}
+                      {/* Required field option (not for static labels) */}
+                      {selectedField.type !== 'label' && (
                       <label className="flex items-center gap-2 pt-2 border-t border-gray-100">
                         <input
                           type="checkbox"
@@ -1524,6 +1630,7 @@ export function FormCreatorTool({ className = '' }: FormCreatorToolProps) {
                         />
                         <span className="text-sm">{tTools('formCreator.required') || 'Required field'}</span>
                       </label>
+                      )}
 
                       <button
                         onClick={handleDeleteField}

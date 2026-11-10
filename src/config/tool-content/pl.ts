@@ -571,6 +571,29 @@ export const toolContentPl: Record<string, ToolContent> = {
     ],
   },
 
+  'form-builder': {
+    title: "Szybki kreator formularzy PDF",
+    metaDescription: "Szybko dodawaj pola do wypełnienia do istniejącego pliku PDF — pola tekstowe, pola wyboru, przyciski opcji i etykiety tekstowe. Za darmo, działa lokalnie w Twojej przeglądarce.",
+    keywords: ["kreator formularzy pdf", "dodaj pola formularza do pdf", "formularz pdf do wypełnienia", "dodawanie etykiet do formularza pdf"],
+    description: "\n      <p>Szybki kreator formularzy PDF to najszybszy sposób, aby zamienić istniejący plik PDF w formularz do wypełnienia. Prześlij dokument, kliknij, aby umieścić kilka popularnych pól — pola tekstowe, wielowierszowe obszary tekstowe, pola wyboru i przyciski opcji — i pobierz gotowy plik. Bez tworzenia pustych stron, bez szablonów, bez nauki obsługi.</p>\n      <p>Możesz też dodawać etykiety tekstowe: statyczny tekst drukowany bezpośrednio na stronie, który tytułuje sekcje lub wyjaśnia, co należy wpisać. Etykiety nie są polami do wypełnienia — to po prostu tekst na dokumencie.</p>\n      <p>Potrzebujesz więcej? Jeśli chcesz zacząć od pustej strony, skorzystać z gotowych szablonów albo dodać listy rozwijane, daty i pola podpisu, użyj zamiast tego pełnego Kreatora formularzy. Całe przetwarzanie odbywa się lokalnie w Twojej przeglądarce, więc Twoje dokumenty pozostają prywatne.</p>\n    ",
+    howToUse: [
+      { step: 1, title: "Prześlij swój plik PDF", description: "Przeciągnij i upuść istniejący plik PDF, który chcesz zamienić w formularz, lub kliknij, aby go wybrać." },
+      { step: 2, title: "Dodaj pola i etykiety", description: "Wybierz typ pola, kliknij dokument, aby je umieścić, przeciągnij, aby ustawić jego pozycję, i edytuj jego tekst w panelu właściwości." },
+      { step: 3, title: "Pobierz swój formularz", description: "Utwórz i pobierz formularz PDF do wypełnienia — gotowy do wysłania i elektronicznego wypełnienia." },
+    ],
+    useCases: [
+      { title: "Proste formularze zgłoszeniowe", description: "Szybko dodawaj pola na imię i nazwisko, dane kontaktowe i zgody do istniejącego dokumentu zgłoszeniowego.", icon: 'user-plus' },
+      { title: "Listy kontrolne i listy zapisów", description: "Wstawiaj pola wyboru i przyciski opcji na listę kontrolną lub listę zapisów w kilka minut.", icon: 'clipboard-list' },
+      { title: "Opisywanie sekcji dokumentu", description: "Drukuj czytelne tytuły sekcji i instrukcje bezpośrednio na dokumencie za pomocą statycznych etykiet tekstowych.", icon: 'tag' },
+    ],
+    faq: [
+      { question: "Jaka jest różnica między Szybkim kreatorem formularzy a Kreatorem formularzy?", answer: "Szybki kreator formularzy to opcja na szybko: działa tylko na istniejącym pliku PDF i oferuje pięć najpopularniejszych elementów — tekst, tekst wielowierszowy, pole wyboru, przycisk opcji i etykietę. Kreator formularzy to pełne narzędzie: może zacząć od pustych stron lub szablonów i dodaje listy rozwijane, daty, podpisy oraz zaawansowaną edycję." },
+      { question: "Jakie typy pól są obsługiwane?", answer: "Pola tekstowe, wielowierszowe obszary tekstowe, pola wyboru, przyciski opcji i statyczne etykiety tekstowe." },
+      { question: "Czy etykiety można wypełniać?", answer: "Nie. Etykiety to statyczny tekst drukowany na stronie, przydatny jako tytuły i instrukcje. Wypełniać można tylko pozostałe typy pól." },
+      { question: "Czy to jest prywatne?", answer: "Tak. Twój plik PDF jest przetwarzany w całości w Twojej przeglądarce i nigdy nie jest przesyłany na serwer." },
+    ],
+  },
+
   'remove-blank-pages': {
     title: "Usuń puste strony",
     metaDescription: "Automatycznie wykrywaj i usuwaj puste strony z dokumentów PDF.",
