@@ -36,9 +36,19 @@ const CHANGE_FREQUENCY = {
 /**
  * Static pages that exist for all locales
  */
+/**
+ * The site is served with trailingSlash: true (see next.config.js), so every
+ * canonical URL ends with '/'. Sitemap URLs must be the final canonical URLs,
+ * otherwise each entry is a redirect.
+ */
+function withTrailingSlash(url: string): string {
+  return url.endsWith('/') ? url : `${url}/`;
+}
+
 const STATIC_PAGES = [
   { path: '', priority: PRIORITY.home, changeFrequency: CHANGE_FREQUENCY.home },
   { path: '/tools', priority: PRIORITY.tools, changeFrequency: CHANGE_FREQUENCY.tools },
+  { path: '/workflow', priority: 0.8, changeFrequency: 'weekly' },
   { path: '/about', priority: PRIORITY.static, changeFrequency: CHANGE_FREQUENCY.static },
   { path: '/faq', priority: PRIORITY.static, changeFrequency: CHANGE_FREQUENCY.static },
   { path: '/privacy', priority: PRIORITY.static, changeFrequency: CHANGE_FREQUENCY.static },
@@ -57,12 +67,12 @@ function generateLocaleEntries(locale: Locale, lastModified: Date): MetadataRout
   for (const page of STATIC_PAGES) {
     const alternatesLanguages: Record<string, string> = {};
     for (const l of locales) {
-      alternatesLanguages[l] = `${siteConfig.url}/${l}${page.path}`;
+      alternatesLanguages[l] = withTrailingSlash(`${siteConfig.url}/${l}${page.path}`);
     }
-    alternatesLanguages['x-default'] = `${siteConfig.url}/en${page.path}`;
+    alternatesLanguages['x-default'] = withTrailingSlash(`${siteConfig.url}/en${page.path}`);
 
     entries.push({
-      url: `${siteConfig.url}/${locale}${page.path}`,
+      url: withTrailingSlash(`${siteConfig.url}/${locale}${page.path}`),
       lastModified,
       changeFrequency: page.changeFrequency as 'daily' | 'weekly' | 'monthly',
       priority: page.priority,
@@ -77,12 +87,12 @@ function generateLocaleEntries(locale: Locale, lastModified: Date): MetadataRout
   for (const tool of tools) {
     const toolAlternates: Record<string, string> = {};
     for (const l of locales) {
-      toolAlternates[l] = `${siteConfig.url}/${l}/tools/${tool.slug}`;
+      toolAlternates[l] = withTrailingSlash(`${siteConfig.url}/${l}/tools/${tool.slug}`);
     }
-    toolAlternates['x-default'] = `${siteConfig.url}/en/tools/${tool.slug}`;
+    toolAlternates['x-default'] = withTrailingSlash(`${siteConfig.url}/en/tools/${tool.slug}`);
 
     entries.push({
-      url: `${siteConfig.url}/${locale}/tools/${tool.slug}`,
+      url: withTrailingSlash(`${siteConfig.url}/${locale}/tools/${tool.slug}`),
       lastModified,
       changeFrequency: CHANGE_FREQUENCY.toolPage,
       priority: PRIORITY.toolPage,
