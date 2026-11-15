@@ -303,15 +303,15 @@ export function ToolSidebar({
     // Collapsed view
     if (isCollapsed) {
         return (
-            <div className="w-12 h-full bg-[hsl(var(--color-background))] border-r border-[hsl(var(--color-border))] flex flex-col items-center py-2">
+            <div className="w-full lg:w-12 h-12 lg:h-full bg-[hsl(var(--color-background))] border-b lg:border-b-0 lg:border-r border-[hsl(var(--color-border))] flex flex-row lg:flex-col items-center px-2 lg:px-0 py-0 lg:py-2 overflow-x-auto lg:overflow-x-visible shrink-0">
                 <button
                     onClick={onToggleCollapse}
-                    className="p-2 rounded-lg hover:bg-[hsl(var(--color-muted))] transition-colors mb-2"
+                    className="p-2 rounded-lg hover:bg-[hsl(var(--color-muted))] transition-colors lg:mb-2 shrink-0"
                     title={tWorkflow('toolbox') || 'Toolbox'}
                 >
                     <PanelLeftOpen className="w-5 h-5 text-[hsl(var(--color-primary))]" />
                 </button>
-                <div className="w-8 h-px bg-[hsl(var(--color-border))] mb-2" />
+                <div className="h-8 w-px lg:w-8 lg:h-px bg-[hsl(var(--color-border))] mx-2 lg:mx-0 lg:mb-2 shrink-0" />
                 {/* Show category icons when collapsed */}
                 {categories.slice(0, 6).map(category => {
                     const CategoryIcon = getIcon(category.icon);
@@ -319,7 +319,7 @@ export function ToolSidebar({
                         <button
                             key={category.id}
                             onClick={onToggleCollapse}
-                            className="p-2 rounded-lg hover:bg-[hsl(var(--color-muted))] transition-colors mb-1"
+                            className="p-2 rounded-lg hover:bg-[hsl(var(--color-muted))] transition-colors lg:mb-1 shrink-0"
                             title={category.name}
                         >
                             <CategoryIcon className="w-4 h-4 text-[hsl(var(--color-muted-foreground))]" />
@@ -331,7 +331,7 @@ export function ToolSidebar({
     }
 
     return (
-        <div className="w-72 h-full bg-[hsl(var(--color-background))] border-r border-[hsl(var(--color-border))] flex flex-col">
+        <div className="w-full lg:w-72 h-auto lg:h-full max-h-[36vh] lg:max-h-none bg-[hsl(var(--color-background))] border-b lg:border-b-0 lg:border-r border-[hsl(var(--color-border))] flex flex-col shrink-0">
             {/* Header */}
             <div className="p-4 border-b border-[hsl(var(--color-border))] flex items-center justify-between">
                 <div>
@@ -366,7 +366,7 @@ export function ToolSidebar({
             </div>
 
             {/* Tools List */}
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto min-h-0">
                 {filteredCategories.map(category => {
                     const isExpanded = expandedCategories.has(category.id);
                     const CategoryIcon = getIcon(category.icon);

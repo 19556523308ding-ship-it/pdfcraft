@@ -152,15 +152,15 @@ export function WorkflowLibrary({
     // Collapsed view
     if (isCollapsed) {
         return (
-            <div className="w-12 h-full bg-[hsl(var(--color-background))] border-l border-[hsl(var(--color-border))] flex flex-col items-center py-2">
+            <div className="w-full lg:w-12 h-12 lg:h-full bg-[hsl(var(--color-background))] border-t lg:border-t-0 lg:border-l border-[hsl(var(--color-border))] flex flex-row lg:flex-col items-center px-2 lg:px-0 py-0 lg:py-2 overflow-x-auto lg:overflow-x-visible shrink-0">
                 <button
                     onClick={onToggleCollapse}
-                    className="p-2 rounded-lg hover:bg-[hsl(var(--color-muted))] transition-colors mb-2"
+                    className="p-2 rounded-lg hover:bg-[hsl(var(--color-muted))] transition-colors lg:mb-2 shrink-0"
                     title={tWorkflow('templates') || 'Templates'}
                 >
                     <PanelRightOpen className="w-5 h-5 text-[hsl(var(--color-primary))]" />
                 </button>
-                <div className="w-8 h-px bg-[hsl(var(--color-border))] mb-2" />
+                <div className="h-8 w-px lg:w-8 lg:h-px bg-[hsl(var(--color-border))] mx-2 lg:mx-0 lg:mb-2 shrink-0" />
                 {/* Show tab icons when collapsed */}
                 {tabs.map(tab => {
                     const Icon = tab.icon;
@@ -168,7 +168,7 @@ export function WorkflowLibrary({
                         <button
                             key={tab.id}
                             onClick={onToggleCollapse}
-                            className="p-2 rounded-lg hover:bg-[hsl(var(--color-muted))] transition-colors mb-1"
+                            className="p-2 rounded-lg hover:bg-[hsl(var(--color-muted))] transition-colors lg:mb-1 shrink-0"
                             title={tab.label}
                         >
                             <Icon className="w-4 h-4 text-[hsl(var(--color-muted-foreground))]" />
@@ -180,7 +180,7 @@ export function WorkflowLibrary({
     }
 
     return (
-        <div className="w-80 h-full bg-[hsl(var(--color-background))] border-l border-[hsl(var(--color-border))] flex flex-col">
+        <div className="w-full lg:w-80 h-auto lg:h-full max-h-[36vh] lg:max-h-none bg-[hsl(var(--color-background))] border-t lg:border-t-0 lg:border-l border-[hsl(var(--color-border))] flex flex-col shrink-0">
             {/* Collapse button header */}
             <div className="flex items-center justify-between px-4 py-2 border-b border-[hsl(var(--color-border))]">
                 <span className="text-sm font-medium text-[hsl(var(--color-foreground))]">
@@ -219,7 +219,7 @@ export function WorkflowLibrary({
             </div>
 
             {/* Content */}
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto min-h-0">
                 {/* Templates Tab */}
                 {activeTab === 'templates' && (
                     <div className="p-4">

@@ -1000,7 +1000,7 @@ function WorkflowEditorContent() {
     }, [loadWorkflow]);
 
     return (
-        <div className="flex h-full relative">
+        <div className="flex flex-col lg:flex-row h-full relative">
             {/* Left Sidebar - Tool Library */}
             <ToolSidebar
                 onDragStart={onDragStart}
@@ -1010,10 +1010,10 @@ function WorkflowEditorContent() {
             />
 
             {/* Main Canvas Area */}
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col min-w-0 min-h-0">
                 {/* Controls with Undo/Redo */}
                 <div className="flex items-center">
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                         <WorkflowControls
                             nodes={nodes as WorkflowNode[]}
                             edges={edges as WorkflowEdge[]}
