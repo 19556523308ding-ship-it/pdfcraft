@@ -148,9 +148,9 @@ export function WorkflowControls({
 
     return (
         <>
-            <div className="flex items-center justify-between px-4 py-3 bg-[hsl(var(--color-background))] border-b border-[hsl(var(--color-border))]">
+            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-3 bg-[hsl(var(--color-background))] border-b border-[hsl(var(--color-border))]">
                 {/* Left: File input and execute */}
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                     {/* File selection */}
                     <div className="flex items-center gap-2">
                         <input
@@ -222,7 +222,7 @@ export function WorkflowControls({
                 </div>
 
                 {/* Right: Save, Import, Clear */}
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                     {/* Node count */}
                     <span className="text-sm text-[hsl(var(--color-muted-foreground))] mr-2">
                         {nodes.length} {tWorkflow('nodes') || 'nodes'}

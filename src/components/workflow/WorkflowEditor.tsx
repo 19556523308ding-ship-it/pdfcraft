@@ -103,6 +103,14 @@ function WorkflowEditorContent() {
     // Sidebar collapse state
     const [isLeftSidebarCollapsed, setIsLeftSidebarCollapsed] = useState(false);
     const [isRightSidebarCollapsed, setIsRightSidebarCollapsed] = useState(false);
+
+    // Mobile: start with both sidebars collapsed so canvas + controls fit small screens
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+            setIsLeftSidebarCollapsed(true);
+            setIsRightSidebarCollapsed(true);
+        }
+    }, []);
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
     // Track created Blob URLs for cleanup
@@ -1010,10 +1018,10 @@ function WorkflowEditorContent() {
             />
 
             {/* Main Canvas Area */}
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col min-w-0">
                 {/* Controls with Undo/Redo */}
                 <div className="flex items-center">
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                         <WorkflowControls
                             nodes={nodes as WorkflowNode[]}
                             edges={edges as WorkflowEdge[]}

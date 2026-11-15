@@ -180,7 +180,7 @@ export function WorkflowLibrary({
     }
 
     return (
-        <div className="w-80 h-full bg-[hsl(var(--color-background))] border-l border-[hsl(var(--color-border))] flex flex-col">
+        <div className="w-80 h-full bg-[hsl(var(--color-background))] border-l border-[hsl(var(--color-border))] flex flex-col max-lg:absolute max-lg:inset-y-0 max-lg:right-0 max-lg:z-30 max-lg:shadow-2xl">
             {/* Collapse button header */}
             <div className="flex items-center justify-between px-4 py-2 border-b border-[hsl(var(--color-border))]">
                 <span className="text-sm font-medium text-[hsl(var(--color-foreground))]">

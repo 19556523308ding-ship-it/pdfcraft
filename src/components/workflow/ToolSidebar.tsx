@@ -331,7 +331,7 @@ export function ToolSidebar({
     }
 
     return (
-        <div className="w-72 h-full bg-[hsl(var(--color-background))] border-r border-[hsl(var(--color-border))] flex flex-col">
+        <div className="w-72 h-full bg-[hsl(var(--color-background))] border-r border-[hsl(var(--color-border))] flex flex-col max-lg:absolute max-lg:inset-y-0 max-lg:left-0 max-lg:z-30 max-lg:shadow-2xl">
             {/* Header */}
             <div className="p-4 border-b border-[hsl(var(--color-border))] flex items-center justify-between">
                 <div>
