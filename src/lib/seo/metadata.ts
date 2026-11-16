@@ -282,6 +282,19 @@ export function generateCookiesMetadata(locale: Locale, translations?: { title: 
 }
 
 /**
+ * Generate metadata for the workflow builder page
+ */
+export function generateWorkflowMetadata(locale: Locale, translations?: { title: string; description: string }): Metadata {
+  return generateBaseMetadata({
+    locale,
+    path: '/workflow',
+    title: translations?.title || 'PDF Workflow Builder',
+    description: translations?.description || 'Create custom PDF processing pipelines by visually connecting tools. Build, save, and reuse your workflows.',
+    keywords: ['workflow', 'PDF workflow', 'pipeline', 'PDF tools'],
+  });
+}
+
+/**
  * Convert locale to Open Graph locale format
  */
 export function getOpenGraphLocale(locale: Locale): string {

@@ -16,6 +16,7 @@ export {
   generateContactMetadata,
   generateTermsMetadata,
   generateCookiesMetadata,
+  generateWorkflowMetadata,
   getCanonicalUrl,
   getAlternateUrls,
   getOpenGraphLocale,
